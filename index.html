@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SMART BREAK | SDN Segaralangu 04 Cipari</title>
+<style>
+:root{--navy:#123b78;--blue:#2165c5;--sky:#eaf3ff;--yellow:#ffd447;--ink:#17243b;--muted:#68778d;--green:#12805c;--red:#c93645;--line:#dce6f2;--white:#fff;--shadow:0 12px 30px rgba(24,61,112,.12)}
+*{box-sizing:border-box}body{margin:0;background:linear-gradient(135deg,#edf5ff 0%,#f8fbff 55%,#fff8df 100%);font-family:system-ui,-apple-system,"Segoe UI",sans-serif;color:var(--ink);min-height:100vh}
+button,input,select{font:inherit}button{cursor:pointer;border:0;border-radius:13px;padding:12px 16px;font-weight:800;transition:transform .12s,filter .12s}button:hover{filter:brightness(1.03);transform:translateY(-1px)}button:disabled{opacity:.45;cursor:not-allowed;transform:none}
+.primary{background:var(--blue);color:white}.yellow{background:var(--yellow);color:#392d00}.light{background:#edf4ff;color:var(--navy);border:1px solid #d8e6fa}.danger{background:#fff0f1;color:var(--red);border:1px solid #ffd1d5}.green{background:#e4f8ef;color:#086746}
+.wrap{max-width:1100px;margin:auto;padding:20px}.top{display:flex;align-items:center;justify-content:space-between;gap:14px;background:var(--navy);color:white;border-radius:22px;padding:20px 24px;box-shadow:var(--shadow)}
+.brand{display:flex;align-items:center;gap:14px}.logo{width:58px;height:58px;display:grid;place-items:center;border-radius:17px;background:var(--yellow);color:var(--navy);font-size:30px}.top h1{margin:0;font-size:clamp(24px,4vw,36px);letter-spacing:.5px}.top p{margin:4px 0 0;color:#d8e8ff}.top-actions{display:flex;gap:8px;flex-wrap:wrap}.top-actions button{font-size:13px;padding:10px 12px}
+.hero{margin:18px 0 20px;display:flex;justify-content:space-between;align-items:center;gap:16px;background:white;border:1px solid var(--line);border-radius:20px;padding:20px 24px;box-shadow:var(--shadow)}.hero h2{margin:0 0 6px;font-size:clamp(20px,3vw,28px)}.hero p{margin:0;color:var(--muted);line-height:1.5}.hero .hero-icon{font-size:50px}
+.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px}.card{background:white;border:1px solid var(--line);border-radius:20px;padding:22px;box-shadow:var(--shadow)}.card h3{margin:0 0 7px;font-size:21px}.sub{color:var(--muted);font-size:14px;line-height:1.5}.field{display:grid;gap:7px;margin:15px 0}.field label{font-weight:800;font-size:14px}.field input,.field select,.toolbar input,.toolbar select{width:100%;padding:12px 13px;border:1px solid #cbd8e8;border-radius:12px;background:#fff;color:var(--ink);outline:none}.field input:focus,.field select:focus{border-color:var(--blue);box-shadow:0 0 0 3px #2165c522}
+.levels{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin:12px 0 18px}.level{background:#f3f7fc;border:2px solid transparent;color:var(--ink);padding:12px 8px}.level.active{border-color:var(--blue);background:var(--sky);color:var(--navy)}.level span{display:block;font-size:12px;font-weight:600;color:var(--muted);margin-top:4px}
+.wide{width:100%}.notice{background:#fff9df;border:1px solid #ffe8a0;padding:12px 14px;border-radius:12px;font-size:13px;line-height:1.5;color:#67531a;margin-top:14px}
+.hidden{display:none!important}.play-card{max-width:800px;margin:20px auto}.play-head{display:flex;justify-content:space-between;gap:12px;align-items:center;flex-wrap:wrap}.pill{display:inline-flex;align-items:center;gap:6px;border-radius:999px;background:#edf4ff;color:var(--navy);padding:7px 11px;font-size:13px;font-weight:800}.progress{height:9px;background:#e9eff7;border-radius:99px;overflow:hidden;margin:17px 0}.progress div{height:100%;background:linear-gradient(90deg,#2165c5,#42b4e8);width:0;transition:width .2s}.question{font-size:clamp(22px,4vw,32px);font-weight:900;line-height:1.35;margin:20px 0}.answers{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}.answer{background:#f4f8ff;border:2px solid #d9e7f8;color:var(--navy);font-size:20px;min-height:68px}.answer.correct{background:#e3f8ee;border-color:#4dc291;color:#086746}.answer.wrong{background:#fff0f1;border-color:#f18b95;color:#a91d2a}.feedback{margin-top:16px;padding:14px;border-radius:13px;line-height:1.5;font-weight:700}.feedback.good{background:#e5f8ef;color:#086746}.feedback.bad{background:#fff2e0;color:#7b4a00}.play-foot{display:flex;justify-content:space-between;gap:10px;align-items:center;margin-top:18px;flex-wrap:wrap}
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin:18px 0}.stat{padding:16px;background:#f3f7fd;border-radius:14px;text-align:center}.stat strong{display:block;font-size:27px;color:var(--navy)}.stat span{font-size:12px;color:var(--muted);font-weight:700}
+.toolbar{display:flex;gap:10px;flex-wrap:wrap;margin:16px 0}.toolbar>*{flex:1;min-width:145px}.table-wrap{overflow:auto;border:1px solid var(--line);border-radius:13px}table{border-collapse:collapse;width:100%;min-width:680px;background:white}th,td{text-align:left;padding:12px;border-bottom:1px solid #e8eef6;font-size:13px}th{background:#f0f5fc;color:#365071}tr:last-child td{border-bottom:0}.tag{padding:5px 8px;border-radius:8px;background:#edf4ff;color:#194b91;font-weight:800;font-size:12px;white-space:nowrap}.row-actions{display:flex;gap:6px}.small{padding:7px 9px;border-radius:9px;font-size:12px}.empty{text-align:center;padding:28px;color:var(--muted)}
+.modal-back{position:fixed;inset:0;background:#091a32a8;display:grid;place-items:center;padding:18px;z-index:10}.modal{width:min(420px,100%);background:white;border-radius:20px;padding:24px;box-shadow:0 24px 80px #0004}.modal h3{margin-top:0}.modal-actions{display:flex;gap:8px;margin-top:18px}.modal-actions button{flex:1}
+footer{text-align:center;color:var(--muted);font-size:12px;padding:22px 8px}
+@media(max-width:720px){.wrap{padding:12px}.top{padding:16px;align-items:flex-start;flex-direction:column}.hero{padding:17px}.grid{grid-template-columns:1fr}.answers{grid-template-columns:1fr}.stats{gap:7px}.stat{padding:12px 5px}.stat strong{font-size:23px}.levels{gap:5px}.level{font-size:13px;padding:10px 4px}.hero .hero-icon{display:none}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header class="top">
+    <div class="brand"><div class="logo">🧠</div><div><h1>SMART BREAK</h1><p>Istirahat Seru, Otak Melaju!</p></div></div>
+    <div class="top-actions"><button class="yellow" onclick="showTeacherLogin()">🔐 Menu Guru</button></div>
+  </header>
+  <section class="hero">
+    <div><h2>Siap menaklukkan tantangan numerasi?</h2><p>Isi identitas, pilih level, lalu kumpulkan poin dalam misi matematika singkat.</p></div><div class="hero-icon">⭐🎯</div>
+  </section>
+
+  <main id="home" class="grid">
+    <section class="card">
+      <h3>👋 Identitas Pemain</h3><p class="sub">Masukkan nama dan kelas sebelum memulai. Hasil permainan akan direkap di perangkat ini.</p>
+      <div class="field"><label for="playerName">Nama murid</label><input id="playerName" maxlength="60" placeholder="Contoh: Andi Pratama" autocomplete="off"></div>
+      <div class="field"><label for="playerClass">Kelas</label><select id="playerClass"><option value="">Pilih kelas</option><option value="1">Kelas 1</option><option value="2">Kelas 2</option><option value="3">Kelas 3</option><option value="4">Kelas 4</option><option value="5">Kelas 5</option><option value="6">Kelas 6</option></select></div>
+      <label style="font-weight:800;font-size:14px">Pilih tingkat tantangan</label>
+      <div class="levels"><button class="level active" data-level="mudah" onclick="setLevel('mudah')">🌱 Mudah<span>pemanasan</span></button><button class="level" data-level="sedang" onclick="setLevel('sedang')">🚀 Sedang<span>tantangan</span></button><button class="level" data-level="sulit" onclick="setLevel('sulit')">🔥 Sulit<span>misi juara</span></button></div>
+      <button class="primary wide" onclick="startGame()">Mulai Bermain ▶</button>
+      <div class="notice">💡 Gunakan nama yang sama setiap kali bermain agar riwayat permainan lebih mudah dilacak. Data tersimpan pada browser/perangkat ini.</div>
+    </section>
+    <section class="card">
+      <h3>🎮 Cara Bermain</h3><p class="sub">Selesaikan 5 soal dalam satu sesi. Setiap jawaban benar mendapat 20 poin. Baca penjelasan setelah menjawab untuk belajar dari setiap tantangan.</p>
+      <div style="display:grid;gap:12px;margin-top:18px">
+        <div style="display:flex;gap:12px;align-items:center"><span style="font-size:25px">1️⃣</span><div><b>Isi identitas</b><div class="sub">Nama dan kelas murid.</div></div></div>
+        <div style="display:flex;gap:12px;align-items:center"><span style="font-size:25px">2️⃣</span><div><b>Pilih level</b><div class="sub">Mudah, sedang, atau sulit.</div></div></div>
+        <div style="display:flex;gap:12px;align-items:center"><span style="font-size:25px">3️⃣</span><div><b>Jawab tantangan</b><div class="sub">Sentuh salah satu pilihan jawaban pada PID.</div></div></div>
+        <div style="display:flex;gap:12px;align-items:center"><span style="font-size:25px">4️⃣</span><div><b>Lihat hasil</b><div class="sub">Skor dan riwayat dapat dilihat oleh guru.</div></div></div>
+      </div>
+      <div class="notice">🏫 SDN Segaralangu 04 Cipari · Program Penguatan Literasi dan Numerasi</div>
+      <h3 style="margin-top:20px">🏆 Papan Peringkat</h3>
+      <p class="sub">Tiga murid terbaik pada setiap level berdasarkan skor tertinggi, lalu waktu tercepat.</p>
+      <div id="homeLeaderboards"></div>
+    </section>
+  </main>
+
+  <section id="game" class="card play-card hidden">
+    <div class="play-head"><span class="pill" id="playerBadge">👤 Pemain</span><span class="pill" id="scoreBadge">⭐ 0 poin</span><span class="pill" id="timerBadge">⏱ 03:00</span></div>
+    <div class="progress"><div id="progressBar"></div></div>
+    <div class="play-head"><span class="sub" id="questionCount">Soal 1 dari 5</span><span class="pill" id="levelBadge">🌱 Mudah</span></div>
+    <div id="questionText" class="question"></div>
+    <div id="answers" class="answers"></div>
+    <div id="feedback" class="feedback hidden"></div>
+    <div class="play-foot"><button class="light" onclick="confirmExit()">✕ Akhiri sesi</button><button id="nextButton" class="primary" onclick="nextQuestion()" disabled>Soal berikutnya →</button></div>
+  </section>
+
+  <section id="result" class="card play-card hidden">
+    <div style="text-align:center;font-size:55px">🏆</div><h2 style="text-align:center;margin:0">Misi Selesai!</h2><p id="resultMessage" class="sub" style="text-align:center"></p>
+    <div class="stats"><div class="stat"><strong id="finalScore">0</strong><span>POIN</span></div><div class="stat"><strong id="finalCorrect">0/5</strong><span>JAWABAN BENAR</span></div><div class="stat"><strong id="finalPercent">0%</strong><span>KETEPATAN</span></div></div>
+    <div class="notice" id="resultNote"></div><div style="display:flex;gap:10px;flex-wrap:wrap;margin-top:18px"><button class="primary" onclick="backHome()">Kembali ke Beranda</button><button class="light" onclick="playAgain()">Main Lagi</button></div>
+  </section>
+
+  <section id="teacher" class="card hidden">
+    <div class="play-head"><div><h2 style="margin:0">📋 Rekap Pemain SMART BREAK</h2><p class="sub">Data yang tersimpan di browser/perangkat ini, termasuk durasi bermain.</p></div><button class="light" onclick="backHome()">← Beranda</button></div>
+    <div class="stats"><div class="stat"><strong id="totalSessions">0</strong><span>TOTAL SESI</span></div><div class="stat"><strong id="uniquePlayers">0</strong><span>NAMA PEMAIN</span></div><div class="stat"><strong id="averageScore">0</strong><span>RATA-RATA POIN</span></div></div>
+    <div class="toolbar"><input id="searchInput" placeholder="Cari nama murid..." oninput="renderRecords()"><select id="filterClass" onchange="renderRecords()"><option value="">Semua kelas</option><option value="1">Kelas 1</option><option value="2">Kelas 2</option><option value="3">Kelas 3</option><option value="4">Kelas 4</option><option value="5">Kelas 5</option><option value="6">Kelas 6</option></select></div>
+    <div class="toolbar"><button class="primary" onclick="exportCSV()">⬇ Unduh Rekap CSV</button><button class="light" onclick="printRecords()">🖨 Cetak Rekap</button><button class="danger" onclick="resetData()">♻ Reset Semua Data</button></div>
+    <div class="table-wrap"><table><thead><tr><th>No.</th><th>Nama</th><th>Kelas</th><th>Tanggal & Waktu</th><th>Level</th><th>Skor</th><th>Benar</th><th>Durasi</th><th>Aksi</th></tr></thead><tbody id="recordsBody"></tbody></table><div id="emptyRecords" class="empty hidden">Belum ada data permainan.</div></div>
+    <div class="notice">🔒 Catatan: proteksi PIN di aplikasi HTML lokal hanya penghalang sederhana, bukan keamanan tingkat tinggi. Jangan simpan informasi sensitif murid.</div>
+  </section>
+  <footer>SMART BREAK · Program Penguatan Numerasi · SDN Segaralangu 04 Cipari</footer>
+</div>
+
+<div id="modalRoot" class="hidden"></div>
+<script>
+/* SMART BREAK - permainan satu file.
+   Data memakai localStorage browser. Ubah PIN guru di bawah sebelum digunakan.
+   Catatan: PIN sisi-klien tidak dapat dianggap sebagai keamanan kuat. */
+const TEACHER_PIN = "1234";
+const STORAGE_KEY = "smartBreakRecords_v1";
+const QUESTIONS = {
+ mudah: [
+  {q:"Berapakah hasil 7 + 8?",a:["14","15","16","17"],c:1,e:"7 + 8 = 15."},
+  {q:"Ada 12 pensil. Sebanyak 5 pensil dipinjam. Berapa pensil yang tersisa?",a:["5","6","7","8"],c:2,e:"12 − 5 = 7 pensil."},
+  {q:"Bilangan setelah 39 adalah ...",a:["38","40","41","49"],c:1,e:"Setelah 39 adalah 40."},
+  {q:"Di meja ada 3 piring. Setiap piring berisi 2 kue. Berapa jumlah kue semuanya?",a:["5","6","8","9"],c:1,e:"3 kelompok × 2 kue = 6 kue."},
+  {q:"Manakah bilangan yang paling besar?",a:["27","72","67","62"],c:1,e:"72 paling besar karena memiliki 7 puluhan."},
+  {q:"Rani memiliki Rp10.000 dan membeli roti seharga Rp4.000. Berapa uang kembaliannya?",a:["Rp4.000","Rp5.000","Rp6.000","Rp7.000"],c:2,e:"Rp10.000 − Rp4.000 = Rp6.000."},
+  {q:"Ada 4 burung di pohon, lalu datang 3 burung lagi. Berapa burung sekarang?",a:["6","7","8","9"],c:1,e:"4 + 3 = 7 burung."},
+  {q:"Bentuk roda sepeda jika dilihat dari depan adalah ...",a:["Segitiga","Persegi","Lingkaran","Persegi panjang"],c:2,e:"Roda berbentuk lingkaran."}
+ ],
+ sedang: [
+  {q:"Di perpustakaan ada 48 buku cerita. Sebanyak 19 buku dipinjam. Berapa buku yang masih ada?",a:["27","29","31","33"],c:1,e:"48 − 19 = 29 buku."},
+  {q:"Ada 6 kantong. Setiap kantong berisi 8 kelereng. Berapa jumlah kelereng?",a:["42","46","48","54"],c:2,e:"6 × 8 = 48 kelereng."},
+  {q:"Pita sepanjang 3 meter dipotong menjadi bagian 50 cm. Berapa potong pita diperoleh?",a:["5","6","7","8"],c:1,e:"3 meter = 300 cm. 300 ÷ 50 = 6 potong."},
+  {q:"Sebuah persegi memiliki sisi 7 cm. Berapa kelilingnya?",a:["14 cm","21 cm","28 cm","49 cm"],c:2,e:"Keliling persegi = 4 × sisi = 4 × 7 = 28 cm."},
+  {q:"Nilai ulangan: 70, 80, 90. Berapa rata-ratanya?",a:["75","80","85","90"],c:1,e:"(70 + 80 + 90) ÷ 3 = 80."},
+  {q:"Ibu membeli 3 kg apel. Harga 1 kg Rp18.000. Berapa total harganya?",a:["Rp36.000","Rp45.000","Rp54.000","Rp60.000"],c:2,e:"3 × Rp18.000 = Rp54.000."},
+  {q:"Sebuah kelas memiliki 32 murid. Sebanyak 3/4 murid mengikuti kegiatan membaca. Berapa murid yang ikut?",a:["8","16","24","28"],c:2,e:"3/4 × 32 = 24 murid."},
+  {q:"Pola bilangan: 5, 10, 20, 40, ... Bilangan berikutnya adalah ...",a:["45","60","70","80"],c:3,e:"Setiap bilangan dikali 2, jadi 40 × 2 = 80."}
+ ],
+ sulit: [
+  {q:"Bak air berukuran panjang 60 cm, lebar 40 cm, dan tinggi 50 cm. Berapa volumenya?",a:["12.000 cm³","60.000 cm³","120.000 cm³","150.000 cm³"],c:2,e:"Volume balok = 60 × 40 × 50 = 120.000 cm³."},
+  {q:"Dina membaca 3/8 buku pada pagi hari dan 1/4 buku pada sore hari. Berapa bagian buku yang sudah dibaca?",a:["4/12","1/2","5/8","7/8"],c:2,e:"1/4 = 2/8, sehingga 3/8 + 2/8 = 5/8."},
+  {q:"Taman berbentuk persegi panjang berukuran 18 m × 12 m. Jika dipasang pagar mengelilingi taman, berapa meter pagar diperlukan?",a:["30 m","48 m","60 m","216 m"],c:2,e:"Keliling = 2 × (18 + 12) = 60 meter."},
+  {q:"Dalam 4 hari, kelas mengumpulkan 12, 15, 9, dan 16 botol plastik. Berapa jumlah seluruh botol?",a:["42","48","52","56"],c:2,e:"12 + 15 + 9 + 16 = 52 botol."},
+  {q:"Sebuah bus menempuh 150 km dalam 3 jam dengan kecepatan tetap. Berapa jarak dalam 5 jam?",a:["200 km","225 km","250 km","300 km"],c:2,e:"Kecepatan = 150 ÷ 3 = 50 km/jam. Dalam 5 jam: 50 × 5 = 250 km."},
+  {q:"Toko memberi diskon Rp12.000 dari harga tas Rp80.000. Berapa harga tas setelah diskon?",a:["Rp62.000","Rp68.000","Rp70.000","Rp72.000"],c:1,e:"Rp80.000 − Rp12.000 = Rp68.000."},
+  {q:"Data jumlah buku yang dibaca: Ali 5, Beni 8, Cici 6, Dodi 9. Berapa selisih terbanyak dan tersedikit?",a:["2 buku","3 buku","4 buku","5 buku"],c:2,e:"Selisih = 9 − 5 = 4 buku."},
+  {q:"Sebuah kotak berisi 24 kelereng. 1/3 berwarna merah dan 1/4 berwarna biru. Sisanya hijau. Berapa kelereng hijau?",a:["6","8","10","14"],c:2,e:"Merah 8, biru 6, sisanya 24 − 8 − 6 = 10 kelereng."}
+ ]
+};
+
+// Bank awal dilengkapi secara otomatis hingga tepat 100 soal unik per level.
+function makeQuestion(level, n) {
+ const rnd=(min,max)=>Math.floor(Math.random()*(max-min+1))+min;
+ let q,a,c,e,x,y,z,op;
+ if(level==="mudah"){
+   switch(n%5){
+    case 0: x=rnd(5,49);y=rnd(2,30);q=`Berapakah hasil ${x} + ${y}?`;c=x+y;e=`${x} + ${y} = ${c}.`;break;
+    case 1: x=rnd(20,99);y=rnd(2,Math.min(19,x));q=`Berapakah hasil ${x} − ${y}?`;c=x-y;e=`${x} − ${y} = ${c}.`;break;
+    case 2: x=rnd(2,10);y=rnd(2,9);q=`Berapakah hasil ${x} × ${y}?`;c=x*y;e=`${x} × ${y} = ${c}.`;break;
+    case 3: x=rnd(2,9);y=rnd(2,10);c=x*y;q=`Ada ${c} benda dibagi sama banyak kepada ${x} anak. Berapa benda yang diterima setiap anak?`;c=y;e=`${c} benda dibagi ${x} sama dengan ${y} benda per anak.`;break;
+    default: x=rnd(10,99);q=`Bilangan setelah ${x} adalah ...`;c=x+1;e=`Bilangan setelah ${x} adalah ${c}.`;
+   }
+ } else if(level==="sedang"){
+   switch(n%5){
+    case 0: x=rnd(120,850);y=rnd(25,199);q=`Berapakah hasil ${x} + ${y}?`;c=x+y;e=`${x} + ${y} = ${c}.`;break;
+    case 1: x=rnd(250,999);y=rnd(30,Math.min(249,x));q=`Berapakah hasil ${x} − ${y}?`;c=x-y;e=`${x} − ${y} = ${c}.`;break;
+    case 2: x=rnd(12,35);y=rnd(3,12);q=`Berapakah hasil ${x} × ${y}?`;c=x*y;e=`${x} × ${y} = ${c}.`;break;
+    case 3: y=rnd(4,15);x=rnd(5,20);c=x*y;q=`Sebanyak ${c} buku dibagikan sama rata ke ${y} rak. Berapa buku pada setiap rak?`;c=x;e=`${c*y} ÷ ${y} = ${x} buku.`;break;
+    default: x=rnd(4,18);y=rnd(3,12);q=`Sebuah persegi memiliki sisi ${x} cm. Berapa kelilingnya?`;c=4*x;e=`Keliling persegi = 4 × ${x} = ${c} cm.`;
+   }
+ } else {
+   switch(n%5){
+    case 0: x=rnd(25,90);y=rnd(12,60);z=rnd(5,25);q=`Balok berukuran ${x} cm × ${y} cm × ${z} cm. Berapa volumenya?`;c=x*y*z;e=`Volume = ${x} × ${y} × ${z} = ${c} cm³.`;break;
+    case 1: x=rnd(15,80);y=rnd(10,60);q=`Persegi panjang berukuran ${x} m × ${y} m. Berapa kelilingnya?`;c=2*(x+y);e=`Keliling = 2 × (${x} + ${y}) = ${c} m.`;break;
+    case 2: x=rnd(12,45);y=rnd(12,45);q=`Berapakah hasil ${x} × ${y}?`;c=x*y;e=`${x} × ${y} = ${c}.`;break;
+    case 3: x=rnd(150,900);y=rnd(2,9);q=`Sebuah perjalanan menempuh ${x*y} km dalam ${y} jam. Berapa jarak rata-rata per jam?`;c=x;e=`Kecepatan rata-rata = ${x*y} ÷ ${y} = ${x} km/jam.`;break;
+    default: x=rnd(100,500);y=rnd(10,90);q=`Harga sebuah barang Rp${x*1000}. Jika mendapat potongan Rp${y*1000}, berapa harga akhirnya?`;c=(x-y)*1000;e=`Rp${x*1000} − Rp${y*1000} = Rp${(x-y)*1000}.`;
+   }
+ }
+ // Empat opsi berbeda; jawaban benar selalu ditempatkan pada indeks acak.
+ const opts=new Set([c]);
+ while(opts.size<4){let delta=rnd(1,Math.max(5,Math.ceil(Math.abs(c)*0.22)));opts.add(Math.max(0,c+(Math.random()<.5?-delta:delta)));}
+ a=[...opts].sort(()=>Math.random()-.5);let ci=a.indexOf(c);
+ const fmt=v=>String(v).replace(/\B(?=(\d{3})+(?!\d))/g,".");
+ if(level==="sulit" && n%5===4){q=q.replace(`Rp${x*1000}`,`Rp${x*1000}`).replace(`Rp${y*1000}`,`Rp${y*1000}`);a=a.map(v=>"Rp"+fmt(v));}
+ else if(level==="sulit" && n%5===0){a=a.map(v=>fmt(v)+" cm³");}
+ else if(level==="sulit" && n%5===1){a=a.map(v=>fmt(v)+" m");}
+ else a=a.map(v=>fmt(v));
+ return {q,a,c:a.indexOf(level==="sulit" && n%5===4 ? "Rp"+fmt(c) : level==="sulit" && n%5===0 ? fmt(c)+" cm³" : level==="sulit" && n%5===1 ? fmt(c)+" m" : fmt(c)),e};
+}
+Object.keys(QUESTIONS).forEach(level=>{
+ let seen=new Set(QUESTIONS[level].map(v=>v.q)), n=0;
+ while(QUESTIONS[level].length<100 && n<5000){const item=makeQuestion(level,n++);if(!seen.has(item.q)){seen.add(item.q);QUESTIONS[level].push(item);}}
+});
+
+let selectedLevel="mudah", session=null, questionSet=[], qIndex=0, score=0, correctCount=0, answered=false, timerId=null, remainingSeconds=180, deadlineMs=0;
+const $=id=>document.getElementById(id);
+function getRecords(){try{return JSON.parse(localStorage.getItem(STORAGE_KEY)||"[]")}catch(e){return []}}
+function saveRecords(records){localStorage.setItem(STORAGE_KEY,JSON.stringify(records))}
+function setLevel(level){selectedLevel=level;document.querySelectorAll(".level").forEach(b=>b.classList.toggle("active",b.dataset.level===level))}
+function hideViews(){["home","game","result","teacher"].forEach(id=>$(id).classList.add("hidden"))}
+function startGame(){
+ const name=$("playerName").value.trim(), klass=$("playerClass").value;
+ if(!name){alert("Silakan isi nama murid terlebih dahulu.");$("playerName").focus();return}
+ if(!klass){alert("Silakan pilih kelas terlebih dahulu.");$("playerClass").focus();return}
+ const pool=QUESTIONS[selectedLevel].slice();
+ questionSet=pool.sort(()=>Math.random()-.5).slice(0,5);
+ qIndex=0;score=0;correctCount=0;answered=false;
+ session={name,klass,level:selectedLevel,startedAt:new Date().toISOString(),answers:[]};
+ clearInterval(timerId); remainingSeconds=180; deadlineMs=Date.now()+180000; updateTimerBadge();
+ timerId=setInterval(tickTimer,250);
+ $("playerBadge").textContent="👤 "+name+" · Kelas "+klass;
+ $("scoreBadge").textContent="⭐ 0 poin";
+ $("levelBadge").textContent=levelLabel(selectedLevel);
+ hideViews();$("game").classList.remove("hidden");renderQuestion();
+}
+function levelLabel(l){return l==="mudah"?"🌱 Mudah":l==="sedang"?"🚀 Sedang":"🔥 Sulit"}
+function updateTimerBadge(){const m=String(Math.floor(remainingSeconds/60)).padStart(2,"0"),sec=String(remainingSeconds%60).padStart(2,"0");const el=$("timerBadge");if(el){el.textContent=`⏱ ${m}:${sec}`;el.style.background=remainingSeconds<=30?"#fff0f1":"#edf4ff";el.style.color=remainingSeconds<=30?"#c93645":"#123b78";}}
+function tickTimer(){
+ if(!session || session.saved){clearInterval(timerId);return;}
+ remainingSeconds=Math.max(0,Math.ceil((deadlineMs-Date.now())/1000));
+ updateTimerBadge();
+ if(remainingSeconds<=0){clearInterval(timerId);finishGame(true);}
+}
+function formatDuration(seconds){seconds=Math.max(0,Math.floor(Number(seconds)||0));return `${Math.floor(seconds/60)} m ${String(seconds%60).padStart(2,"0")} dtk`; }
+function renderQuestion(){
+ const item=questionSet[qIndex];answered=false;
+ $("questionCount").textContent=`Soal ${qIndex+1} dari ${questionSet.length}`;
+ $("progressBar").style.width=((qIndex)/questionSet.length*100)+"%";
+ $("questionText").textContent=item.q;
+ $("answers").innerHTML="";
+ $("feedback").className="feedback hidden";$("feedback").textContent="";
+ $("nextButton").disabled=true;$("nextButton").textContent=qIndex===questionSet.length-1?"Lihat Hasil 🏆":"Soal berikutnya →";
+ item.a.forEach((answer,i)=>{const b=document.createElement("button");b.className="answer";b.textContent=answer;b.onclick=()=>chooseAnswer(i,b);$("answers").appendChild(b)});
+}
+function chooseAnswer(index,button){
+ if(answered || !session || session.saved || remainingSeconds<=0)return;answered=true;
+ const item=questionSet[qIndex], isCorrect=index===item.c;
+ if(isCorrect){score+=20;correctCount++}
+ session.answers.push({question:item.q,chosen:item.a[index],correctAnswer:item.a[item.c],correct:isCorrect});
+ [...$("answers").children].forEach((b,i)=>{b.disabled=true;if(i===item.c)b.classList.add("correct");if(i===index&&!isCorrect)b.classList.add("wrong")});
+ $("scoreBadge").textContent="⭐ "+score+" poin";
+ const fb=$("feedback");fb.classList.remove("hidden");fb.classList.add(isCorrect?"good":"bad");
+ fb.textContent=(isCorrect?"✅ Benar! Hebat! ":"💡 Belum tepat. ") + item.e;
+ $("nextButton").disabled=false;
+ $("progressBar").style.width=((qIndex+1)/questionSet.length*100)+"%";
+}
+function nextQuestion(){if(!answered || !session || session.saved)return;if(qIndex<questionSet.length-1){qIndex++;renderQuestion()}else finishGame()}
+function finishGame(timedOut=false){
+ if(!session || session.saved)return;
+ clearInterval(timerId);
+ const elapsed=Math.min(180,Math.max(0,Math.floor((Date.now()-(deadlineMs-180000))/1000)));
+ if(timedOut)remainingSeconds=0;
+ session.saved=true;session.score=score;session.correct=correctCount;session.total=questionSet.length;
+ session.duration=elapsed;session.timedOut=timedOut;session.finishedAt=new Date().toISOString();session.id=(Date.now().toString(36)+Math.random().toString(36).slice(2,7));
+ const records=getRecords();records.unshift({...session});saveRecords(records);renderHomeLeaderboards();
+ hideViews();$("result").classList.remove("hidden");
+ $("finalScore").textContent=score;$("finalCorrect").textContent=correctCount+"/"+questionSet.length;$("finalPercent").textContent=Math.round(correctCount/questionSet.length*100)+"%";
+ $("resultMessage").textContent=timedOut?`Waktu habis, ${session.name}! Hasil permainan otomatis disimpan.`:`Bagus, ${session.name} dari kelas ${session.klass}! Kamu sudah menyelesaikan SMART BREAK.`;
+ $("resultNote").textContent=(timedOut?"⏰ Waktu 3 menit telah habis. ":"")+"Durasi bermain: "+formatDuration(session.duration)+". "+(score>=80?"Luar biasa! Pertahankan rasa ingin tahu dan terus berlatih.":score>=60?"Bagus! Baca kembali pembahasan dan coba lagi untuk meningkatkan skor.":"Terima kasih sudah mencoba! Setiap tantangan adalah kesempatan untuk belajar.");
+}
+function backHome(){clearInterval(timerId);hideViews();$("home").classList.remove("hidden");renderHomeLeaderboards()}
+function playAgain(){ $("playerName").value=session?.name||""; $("playerClass").value=session?.klass||"";backHome();startGame()}
+function confirmExit(){showModal("Akhiri sesi?","Jika sesi diakhiri sekarang, skor dan durasi saat ini akan disimpan ke rekap.",()=>finishGame(false),"Simpan hasil")}
+function showModal(title,message,onConfirm,confirmLabel="Ya, lanjutkan",danger=false){
+ const root=$("modalRoot");root.classList.remove("hidden");root.innerHTML=`<div class="modal-back"><div class="modal" role="dialog" aria-modal="true"><h3>${escapeHTML(title)}</h3><p class="sub">${escapeHTML(message)}</p><div class="modal-actions"><button class="light" id="modalCancel">Batal</button><button class="${danger?"danger":"primary"}" id="modalConfirm">${escapeHTML(confirmLabel)}</button></div></div></div>`;
+ $("modalCancel").onclick=()=>{root.classList.add("hidden");root.innerHTML=""};
+ $("modalConfirm").onclick=()=>{root.classList.add("hidden");root.innerHTML="";onConfirm()};
+}
+function escapeHTML(s){return String(s).replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]))}
+function showTeacherLogin(){
+ const root=$("modalRoot");root.classList.remove("hidden");root.innerHTML=`<div class="modal-back"><form class="modal" id="pinForm"><h3>🔐 Akses Menu Guru</h3><p class="sub">Masukkan PIN guru untuk membuka rekap dan pengaturan data.</p><div class="field"><label for="pinInput">PIN guru</label><input id="pinInput" type="password" inputmode="numeric" autocomplete="off" maxlength="12" placeholder="Masukkan PIN" required></div><p id="pinError" style="color:var(--red);font-size:13px"></p><div class="modal-actions"><button type="button" class="light" id="pinCancel">Batal</button><button class="primary" type="submit">Masuk</button></div></form></div>`;
+ $("pinCancel").onclick=()=>{root.classList.add("hidden");root.innerHTML=""};
+ $("pinInput").focus();$("pinForm").onsubmit=e=>{e.preventDefault();if($("pinInput").value===TEACHER_PIN){root.classList.add("hidden");root.innerHTML="";openTeacher()}else{$("pinError").textContent="PIN tidak sesuai. Coba kembali.";$("pinInput").value="";$("pinInput").focus()}};
+}
+function openTeacher(){hideViews();$("teacher").classList.remove("hidden");renderRecords()}
+function renderRecords(){
+ const records=getRecords(), term=$("searchInput").value.trim().toLowerCase(), klass=$("filterClass").value;
+ const filtered=records.filter(r=>(!term||r.name.toLowerCase().includes(term))&&(!klass||r.klass===klass));
+ $("totalSessions").textContent=records.length;
+ $("uniquePlayers").textContent=new Set(records.map(r=>r.name.toLowerCase()+"|"+r.klass)).size;
+ $("averageScore").textContent=records.length?Math.round(records.reduce((s,r)=>s+(r.score||0),0)/records.length):0;
+ const body=$("recordsBody");body.innerHTML="";
+ $("emptyRecords").classList.toggle("hidden",filtered.length!==0);
+ filtered.forEach((r,i)=>{
+  const tr=document.createElement("tr");
+  const date=new Date(r.finishedAt||r.startedAt).toLocaleString("id-ID",{dateStyle:"medium",timeStyle:"short"});
+  const cells=[i+1,r.name,"Kelas "+r.klass,date,levelLabel(r.level),`${r.score||0}/100`,`${r.correct||0}/${r.total||5}`,formatDuration(r.duration||0)];
+  cells.forEach((v,j)=>{const td=document.createElement("td");if(j===4){const span=document.createElement("span");span.className="tag";span.textContent=v;td.appendChild(span)}else td.textContent=v;tr.appendChild(td)});
+  const action=document.createElement("td"),wrap=document.createElement("div");wrap.className="row-actions";const del=document.createElement("button");del.className="danger small";del.textContent="Hapus";del.onclick=()=>deleteRecord(r.id);wrap.appendChild(del);action.appendChild(wrap);tr.appendChild(action);body.appendChild(tr);
+ });
+}
+function deleteRecord(id){showModal("Hapus satu riwayat?","Riwayat permainan ini akan dihapus dari perangkat.",()=>{saveRecords(getRecords().filter(r=>r.id!==id));renderRecords()},"Hapus",true)}
+function resetData(){if(!getRecords().length){alert("Belum ada data yang dapat direset.");return}showModal("Reset seluruh data?","Semua riwayat permainan yang tersimpan pada browser ini akan dihapus permanen. Unduh rekap terlebih dahulu jika masih diperlukan.",()=>{localStorage.removeItem(STORAGE_KEY);renderRecords()},"Ya, reset semua",true)}
+function exportCSV(){
+ const records=getRecords();if(!records.length){alert("Belum ada data untuk diunduh.");return}
+ const rows=[["Nama","Kelas","Tanggal dan waktu","Level","Skor","Jawaban benar","Jumlah soal","Persentase","Durasi bermain (detik)"]];
+ records.forEach(r=>rows.push([r.name,"Kelas "+r.klass,new Date(r.finishedAt||r.startedAt).toLocaleString("id-ID"),r.level,r.score,r.correct,r.total,Math.round((r.correct/r.total)*100)+"%",r.duration||0]));
+ const csv="\uFEFF"+rows.map(row=>row.map(v=>'"'+String(v??"").replace(/"/g,'""')+'"').join(",")).join("\r\n");
+ const blob=new Blob([csv],{type:"text/csv;charset=utf-8;"}),url=URL.createObjectURL(blob),a=document.createElement("a");a.href=url;a.download="Rekap_SMART_BREAK.csv";document.body.appendChild(a);a.click();a.remove();URL.revokeObjectURL(url);
+}
+function printRecords(){window.print()}
+
+
+function renderHomeLeaderboards(){
+ const root=$("homeLeaderboards");if(!root)return;
+ const records=getRecords();
+ root.innerHTML="";
+ ["mudah","sedang","sulit"].forEach(level=>{
+  const best=records.filter(r=>r.level===level).sort((a,b)=>(b.score||0)-(a.score||0)||(a.duration||999999)-(b.duration||999999)).slice(0,3);
+  const section=document.createElement("div");section.style.margin="12px 0";
+  const title=document.createElement("h4");title.textContent=levelLabel(level);title.style.margin="0 0 8px";section.appendChild(title);
+  if(!best.length){const p=document.createElement("p");p.className="sub";p.textContent="Belum ada peringkat.";section.appendChild(p);}
+  else best.forEach((r,i)=>{const row=document.createElement("div");row.style.cssText="display:flex;justify-content:space-between;gap:8px;padding:9px 10px;margin:5px 0;background:#f3f7fd;border-radius:10px";
+   const name=document.createElement("span");name.textContent=`${["🥇","🥈","🥉"][i]} ${r.name} (Kelas ${r.klass})`;
+   const scoreText=document.createElement("b");scoreText.textContent=`${r.score||0} poin · ${formatDuration(r.duration||0)}`;
+   row.append(name,scoreText);section.appendChild(row);
+  });
+  root.appendChild(section);
+ });
+}
+
+renderHomeLeaderboards();
+document.addEventListener("visibilitychange",()=>{if(!document.hidden && session && !session.saved)tickTimer();});
+</script>
+</body>
+</html>
